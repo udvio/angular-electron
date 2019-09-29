@@ -3,42 +3,46 @@
     {{ 'PAGES.HOME.TITLE' | translate }}
   </h1>
 </div> -->
+<div class="container">
+  <div class="main-div">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Log In</mat-card-title>
+      </mat-card-header>
 
-<div class="main-div">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Log In</mat-card-title>
-    </mat-card-header>
+      <div>
+        <form [formGroup]="logInForm" (ngSubmit)="onSubmit()">
+          <div>
+            <mat-form-field>
+                <input type="text" matInput placeholder ="Username" formControlName='userName' required>
+            </mat-form-field>
+          </div>
+          
 
-    <div>
-      <form [formGroup]="logInForm" (ngSubmit)="onSubmit()">
-        <div>
-          <mat-form-field>
-              <input type="text" matInput placeholder ="Username" formControlName='userName' required>
-          </mat-form-field>
-        </div>
-        
+          <div>
+            <mat-form-field>
+              <input type="password" matInput placeholder="Password" formControlName='passWord' required>
+            </mat-form-field>
+          </div>
 
-        <div>
-          <mat-form-field>
-            <input type="text" matInput placeholder="Password" formControlName='passWord' required>
-          </mat-form-field>
-        </div>
+          
+        </form>
+      </div>
 
-        
-      </form>
-    </div>
+      <div class='buttonRow'>
+        <button mat-raised-button (click)="onSubmit()" [disabled]="!logInForm.valid">Log In</button>
+        <button mat-raised-button (click)="closeApp()">Quit</button>
+      </div>
+    </mat-card>
+  </div>
+  
 
-    <div class='buttonRow'>
-      <button mat-raised-button (click)="onSubmit()" [disabled]="!logInForm.valid">Log In</button>
-      <button mat-raised-button (click)="closeApp()">Quit</button>
-    </div>
-  </mat-card>
+  <div style="color: white">
+    <h2>submitted username: {{userName}}</h2>
+    <h2>submitted password: {{passWord}}</h2>
+  </div>
 </div>
 
 
-<div>
-  <h2>submitted username: {{userName}}</h2>
-  <h2>submitted password: {{passWord}}</h2>
-</div>
+
 
