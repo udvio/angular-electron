@@ -1,5 +1,40 @@
-<div class="container">
+<!-- <div class="container">
   <h1 class="title">
     {{ 'PAGES.HOME.TITLE' | translate }}
   </h1>
+</div> -->
+
+<form [formGroup]="logInForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label>Username
+      <input type="text" formControlName='userName' required>
+    </label>
+  </div>
+
+  <div>
+      <label>Password
+        <input type="text" formControlName='passWord' required>
+      </label>
+  </div>
+  
+  
+  <!-- <div>
+      <button type="submit" [disabled]="!logInForm.valid">Log In</button>
+    </div> -->
+  
+
+</form>
+
+<div>
+    <button (click)="onSubmit()" [disabled]="!logInForm.valid">Log In</button>
+  </div>
+
+<div>
+    <button (click)="closeApp()">Quit</button>
+  </div>
+
+
+<div>
+  <h2>submitted username: {{userName}}</h2>
+  <h2>submitted password: {{passWord}}</h2>
 </div>

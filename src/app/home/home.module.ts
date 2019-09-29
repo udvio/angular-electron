@@ -1,3 +1,5 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -8,6 +10,6 @@ import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [HomeComponent],
-  imports: [CommonModule, SharedModule, HomeRoutingModule]
+  imports: [CommonModule, SharedModule, HomeRoutingModule, BrowserModule, FormsModule, ReactiveFormsModule]
 })
 export class HomeModule {}
