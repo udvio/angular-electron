@@ -4,37 +4,41 @@
   </h1>
 </div> -->
 
-<form [formGroup]="logInForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label>Username
-      <input type="text" formControlName='userName' required>
-    </label>
-  </div>
+<div class="main-div">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Log In</mat-card-title>
+    </mat-card-header>
 
-  <div>
-      <label>Password
-        <input type="text" formControlName='passWord' required>
-      </label>
-  </div>
-  
-  
-  <!-- <div>
-      <button type="submit" [disabled]="!logInForm.valid">Log In</button>
-    </div> -->
-  
+    <div>
+      <form [formGroup]="logInForm" (ngSubmit)="onSubmit()">
+        <div>
+          <mat-form-field>
+              <input type="text" matInput placeholder ="Username" formControlName='userName' required>
+          </mat-form-field>
+        </div>
+        
 
-</form>
+        <div>
+          <mat-form-field>
+            <input type="text" matInput placeholder="Password" formControlName='passWord' required>
+          </mat-form-field>
+        </div>
 
-<div>
-    <button (click)="onSubmit()" [disabled]="!logInForm.valid">Log In</button>
-  </div>
+        
+      </form>
+    </div>
 
-<div>
-    <button (click)="closeApp()">Quit</button>
-  </div>
+    <div class='buttonRow'>
+      <button mat-raised-button (click)="onSubmit()" [disabled]="!logInForm.valid">Log In</button>
+      <button mat-raised-button (click)="closeApp()">Quit</button>
+    </div>
+  </mat-card>
+</div>
 
 
 <div>
   <h2>submitted username: {{userName}}</h2>
   <h2>submitted password: {{passWord}}</h2>
 </div>
+
