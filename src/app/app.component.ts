@@ -1,7 +1,9 @@
+import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { ElectronService } from './core/services';
 import { TranslateService } from '@ngx-translate/core';
 import { AppConfig } from '../environments/environment';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +13,9 @@ import { AppConfig } from '../environments/environment';
 export class AppComponent {
   constructor(
     public electronService: ElectronService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private router: Router,
+    private location: Location
   ) {
     translate.setDefaultLang('en');
     console.log('AppConfig', AppConfig);
@@ -24,5 +28,17 @@ export class AppComponent {
     } else {
       console.log('Mode web');
     }
+  }
+
+  whereAmI(){
+    console.warn(this.router.url)
+  }
+
+  goHome(){
+    this.router.navigate([""])
+  }
+
+  goBack(){
+    this.location.back()
   }
 }

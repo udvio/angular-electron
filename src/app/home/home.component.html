@@ -11,7 +11,7 @@
       </mat-card-header>
 
       <div>
-        <form [formGroup]="logInForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="logInForm">
           <div>
             <mat-form-field>
                 <input type="text" matInput placeholder ="Username" formControlName='userName' required>
@@ -37,10 +37,10 @@
   </div>
   
 
-  <div style="color: white">
+  <!-- <div style="color: white">
     <h2>submitted username: {{userName}}</h2>
     <h2>submitted password: {{passWord}}</h2>
-  </div>
+  </div> -->
 </div>
 
 

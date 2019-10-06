@@ -1,0 +1,50 @@
+<h2>Open New Case</h2>
+<button (click)="checkValues()">Check Values</button>
+<div class="main-div">
+<div>
+    <form [formGroup]="caseForm">
+        <mat-form-field>
+            <mat-label>Case Type</mat-label>
+            <mat-select formControlName="accidentType" (selectionChange)="updateForm()">
+                <mat-option *ngFor="let caseType of CaseTypes" [value]="caseType.caseType">
+                {{caseType.caseType}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div *ngIf="caseForm.value.accidentType!=''">
+            <div *ngFor="let formFields of activeCaseTypeFormFields">
+                <mat-form-field>
+                <mat-label>{{formFields.fieldDisplay}}</mat-label>
+                <ng-container *ngIf = "formFields.fieldType == 'string'; else date">
+                    <input type="text" matInput placeholder="{{formFields.fieldDisplay}}" formControlName='{{formFields.fieldIdentifier}}' required>
+                </ng-container>
+                <ng-template #date>
+                    <ng-container *ngIf = "formFields.fieldType == 'date'">
+                        <input matInput [matDatepicker]="dp3" placeholder="Input disabled" formControlName="{{formFields.fieldIdentifier}}" disabled>
+                        <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                        <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+                    </ng-container>
+                </ng-template>
+                
+
+
+
+                </mat-form-field>   
+            </div>
+            <!-- <mat-form-field *ngFor = "let formFields of activeCaseTypeFormFields"> -->
+                <!-- <input *ngIf="formFields.fieldType==string"type="text"> -->
+            <!-- </mat-form-field> -->
+        </div>
+
+
+    </form>
+
+</div>
+    
+
+<div class="buttonRow">
+    <button mat-raised-button (click)="resetForm()">Reset Form</button>
+    <button mat-raised-button (click)=goForward() [disabled]="!caseForm.valid">Submit</button>
+</div>
+</div>

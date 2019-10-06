@@ -1,5 +1,6 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -14,15 +15,18 @@ export class HomeComponent implements OnInit {
     passWord: ['', Validators.required]
   })
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private router: Router) { }
 
   onSubmit(){
-    console.warn("User tried to log in")
-    this.userName = this.logInForm.get('userName').value
-    this.passWord = this.logInForm.get('passWord').value
+    console.warn("Username: ", this.logInForm.get('userName').value)
+    console.warn("Password: ", this.logInForm.get('passWord').value)
+    this.router.navigate(['/opencase'])
+    // this.userName = this.logInForm.get('userName').value
+    // this.passWord = this.logInForm.get('passWord').value
   }
 
   closeApp(){
+    // window.close()
     console.warn("User tried to close app")
   }
 
