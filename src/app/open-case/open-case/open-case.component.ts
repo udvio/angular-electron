@@ -1,3 +1,4 @@
+import { OpenCaseService } from './../../open-case.service';
 import { Fields } from './../caseFields';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -13,75 +14,77 @@ import { ICaseFields } from '../caseFields';
   styleUrls: ['./open-case.component.scss']
 })
 export class OpenCaseComponent implements OnInit {
-  caseForm = this.formBuilder.group({
-    accidentType : ["",Validators.required],
-    somethingTrial : [""]
-    })
-
-  activeCaseTypeFormFields : Fields[]
+  // caseForm = this.formBuilder.group({
+  //   accidentType : ["",Validators.required],
+  //   somethingTrial : [""]
+  //   })
+  caseForm
+  activeCaseTypeFormFields
   
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private openCaseService: OpenCaseService
   ) { }
+  // CaseTypeKeys = ["Accident","Other"]
+  CaseTypeKeys = []
+  CaseTypes
+  // CaseTypes = {
+  //   "Accident":[
+  //     {
+  //       fieldDisplay: "Name",
+  //       priority: 1,
+  //       fieldIdentifier: "clientName",
+  //       fieldType: "string"
+  //     },
+  //     {
+  //       fieldDisplay: "Identity Card #",
+  //       priority: 2,
+  //       fieldIdentifier: "accidentDate",
+  //       fieldType: "string"
+  //     },
+  //     {
+  //       fieldDisplay: "License Plate #",
+  //       priority: 4,
+  //       fieldIdentifier: "licensePlateNumber",
+  //       fieldType: "string"
+  //     },
+  //     {
+  //       fieldDisplay: "Accident Date",
+  //       priority: 3,
+  //       fieldIdentifier: "accidentDate",
+  //       fieldType: "date"
+  //     }],
+    
+  //   "Other": [
+  //     {
+  //       fieldDisplay: "Dummy 1",
+  //       priority: 1,
+  //       fieldIdentifier: "dummy1",
+  //       fieldType: "string"
+  //     },
+  //     {
+  //       fieldDisplay: "Dummy 2",
+  //       priority: 2,
+  //       fieldIdentifier: "dummy2",
+  //       fieldType: "date"
+  //     },
+  //     {
+  //       fieldDisplay: "Dummy 3",
+  //       priority: 3,
+  //       fieldIdentifier: "dummy3",
+  //       fieldType: "string"
+  //     }
+  //   ]
+  // }
 
-  CaseTypes: ICaseFields[] = [
-    {
-        caseType: "Accident",
-        fields: [{
-            fieldDisplay: "Name",
-            priority: 1,
-            fieldIdentifier: "clientName",
-            fieldType: "string"
-        },
-        {
-            fieldDisplay: "Identity Card #",
-            priority: 2,
-            fieldIdentifier: "accidentDate",
-            fieldType: "string"
-        },
-        {
-            fieldDisplay: "License Plate #",
-            priority: 4,
-            fieldIdentifier: "licensePlateNumber",
-            fieldType: "string"
-        },
-        {
-            fieldDisplay: "Accident Date",
-            priority: 3,
-            fieldIdentifier: "accidentDate",
-            fieldType: "date"
-        },
-        ]
-    },
-    {
-        caseType: "Other",
-        fields: [{
-            fieldDisplay: "Dummy 1",
-            priority: 1,
-            fieldIdentifier: "dummy1",
-            fieldType: "string"
-        },
-        {
-            fieldDisplay: "Dummy 2",
-            priority: 2,
-            fieldIdentifier: "dummy2",
-            fieldType: "date"
-        },
-        {
-            fieldDisplay: "Dummy 3",
-            priority: 3,
-            fieldIdentifier: "dummy3",
-            fieldType: "string"
-        }
-        ]}
-] 
 
 
   goForward() {
     console.warn(this.router.url)
+    this.openCaseService.sendFormItems(this.caseForm)
     this.router.navigate(['opencaseconfirm'], {relativeTo: this.route})
   }
 
@@ -107,21 +110,20 @@ export class OpenCaseComponent implements OnInit {
   async updateForm() {
     console.warn("the new value is", this.caseForm.get('accidentType').value)
     await this.removeGroups()
-    let chosenCaseType 
-    for (let CASES of this.CaseTypes) {
-      if (CASES.caseType.valueOf() == this.caseForm.value.accidentType) {
-        chosenCaseType = CASES
-        this.activeCaseTypeFormFields = CASES.fields
-      }
-    }
-
-    for (let caseFields of chosenCaseType.fields) {
+    for (let caseFields of this.CaseTypes[this.caseForm.get('accidentType').value]) {
       this.caseForm.addControl(caseFields.fieldIdentifier, new FormControl("",Validators.required))
     }
 
   }
 
   ngOnInit() {
+    this.caseForm = this.openCaseService.getFormItems();
+    this.CaseTypes = this.openCaseService.getCaseTypes();
+    for (let keyValue in this.CaseTypes){
+      this.CaseTypeKeys.push(keyValue)
+    }
+    
+    
 
   }
 

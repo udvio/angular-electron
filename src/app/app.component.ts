@@ -31,7 +31,7 @@ export class AppComponent {
   }
 
   whereAmI(){
-    console.warn(this.router.url)
+    console.info(this.router.url)
   }
 
   goHome(){
