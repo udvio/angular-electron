@@ -1,12 +1,7 @@
-import { OpenCaseService } from './../../open-case.service';
-import { Fields } from './../caseFields';
+import { OpenCaseService } from './../open-case.service';
 import { FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ICaseFields } from '../caseFields';
-
-
 
 @Component({
   selector: 'app-open-case',
@@ -14,10 +9,6 @@ import { ICaseFields } from '../caseFields';
   styleUrls: ['./open-case.component.scss']
 })
 export class OpenCaseComponent implements OnInit {
-  // caseForm = this.formBuilder.group({
-  //   accidentType : ["",Validators.required],
-  //   somethingTrial : [""]
-  //   })
   caseForm:FormGroup
 
 
@@ -27,59 +18,8 @@ export class OpenCaseComponent implements OnInit {
     private formBuilder: FormBuilder,
     private openCaseService: OpenCaseService
   ) { }
-  // CaseTypeKeys = ["Accident","Other"]
   CaseTypeKeys = []
   CaseTypes
-  // CaseTypes = {
-  //   "Accident":[
-  //     {
-  //       fieldDisplay: "Name",
-  //       priority: 1,
-  //       fieldIdentifier: "clientName",
-  //       fieldType: "string"
-  //     },
-  //     {
-  //       fieldDisplay: "Identity Card #",
-  //       priority: 2,
-  //       fieldIdentifier: "accidentDate",
-  //       fieldType: "string"
-  //     },
-  //     {
-  //       fieldDisplay: "License Plate #",
-  //       priority: 4,
-  //       fieldIdentifier: "licensePlateNumber",
-  //       fieldType: "string"
-  //     },
-  //     {
-  //       fieldDisplay: "Accident Date",
-  //       priority: 3,
-  //       fieldIdentifier: "accidentDate",
-  //       fieldType: "date"
-  //     }],
-    
-  //   "Other": [
-  //     {
-  //       fieldDisplay: "Dummy 1",
-  //       priority: 1,
-  //       fieldIdentifier: "dummy1",
-  //       fieldType: "string"
-  //     },
-  //     {
-  //       fieldDisplay: "Dummy 2",
-  //       priority: 2,
-  //       fieldIdentifier: "dummy2",
-  //       fieldType: "date"
-  //     },
-  //     {
-  //       fieldDisplay: "Dummy 3",
-  //       priority: 3,
-  //       fieldIdentifier: "dummy3",
-  //       fieldType: "string"
-  //     }
-  //   ]
-  // }
-
-
 
   goForward() {
     console.warn(this.router.url)

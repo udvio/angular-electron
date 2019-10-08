@@ -3,8 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { OpenCaseRoutingModule } from './open-case-routing.module';
-import { OpenCaseComponent } from './open-case/open-case.component';
-import { OpenCaseConfirmComponent } from './open-case-confirm/open-case-confirm.component';
+import { OpenCaseComponent } from './open-case.component';
 import { MatSelectModule } from '@angular/material/select'
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -14,7 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
-  declarations: [OpenCaseComponent, OpenCaseConfirmComponent],
+  declarations: [OpenCaseComponent],
   imports: [
     CommonModule,
     OpenCaseRoutingModule,

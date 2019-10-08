@@ -5,11 +5,11 @@ import { Router } from '@angular/router';
 import { AppConfig } from '../../environments/environment';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-login',
+  templateUrl: './log-in.component.html',
+  styleUrls: ['./log-in.component.css']
 })
-export class HomeComponent implements OnInit {
+export class LogInComponent implements OnInit {
   userName:string = "None";
   passWord:string = "None";
   logInForm = this.fb.group({

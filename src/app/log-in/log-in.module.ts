@@ -6,13 +6,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { HomeRoutingModule } from './home-routing.module';
+import { LoginRoutingModule } from './log-in-routing.module';
 
-import { HomeComponent } from './home.component';
+import { LogInComponent } from './log-in.component';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [HomeComponent],
-  imports: [CommonModule, SharedModule, HomeRoutingModule, BrowserModule, FormsModule, ReactiveFormsModule, MatInputModule, MatButtonModule, MatCardModule]
+  declarations: [LogInComponent],
+  imports: [CommonModule, SharedModule, LoginRoutingModule, BrowserModule, FormsModule, ReactiveFormsModule, MatInputModule, MatButtonModule, MatCardModule]
 })
-export class HomeModule {}
+export class LogInModule {}
