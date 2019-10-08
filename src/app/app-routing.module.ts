@@ -11,7 +11,7 @@ const routes: Routes = [
   },
   {
     path:'opencase',
-    loadChildren: () => import('./open-case/open-case.module').then(mod => mod.OpenCaseModule)
+    loadChildren: () => import('./open-case/open-case.module').then(module => module.OpenCaseModule)
     // component: OpenCaseComponent,
     // pathMatch:'full'
   },

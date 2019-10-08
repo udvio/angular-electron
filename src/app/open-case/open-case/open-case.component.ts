@@ -1,6 +1,6 @@
 import { OpenCaseService } from './../../open-case.service';
 import { Fields } from './../caseFields';
-import { FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -18,9 +18,8 @@ export class OpenCaseComponent implements OnInit {
   //   accidentType : ["",Validators.required],
   //   somethingTrial : [""]
   //   })
-  caseForm
-  activeCaseTypeFormFields
-  
+  caseForm:FormGroup
+
 
   constructor(
     private router: Router,

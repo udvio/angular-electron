@@ -1,5 +1,8 @@
-<h1>Law-Doc-Page</h1>
-<button (click)="whereAmI()">Where am i?</button>
-<button (click)="goHome()">Home</button>
-<button (click)="goBack()">Go Back</button>
+<div *ngIf="!environmentStatus">
+    <button (click)="whereAmI()">Where am i?</button>
+    <button (click)="goHome()">Home</button>
+    <button (click)="goBack()">Go Back</button>
+</div>
+
+
 <router-outlet></router-outlet>

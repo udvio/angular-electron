@@ -30,8 +30,12 @@ export class AppComponent {
     }
   }
 
+  environmentStatus = AppConfig.production
+  
+
   whereAmI(){
     console.info(this.router.url)
+    console.log(typeof(AppConfig.production))
   }
 
   goHome(){
