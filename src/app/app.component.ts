@@ -35,7 +35,6 @@ export class AppComponent {
 
   whereAmI(){
     console.info(this.router.url)
-    console.log(typeof(AppConfig.production))
   }
 
   goHome(){
