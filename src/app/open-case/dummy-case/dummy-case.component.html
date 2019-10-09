@@ -1,0 +1,34 @@
+<div [formGroup]="dummyForm">
+    <div >
+    <mat-form-field>
+        <mat-label>Dummy 1</mat-label>
+        <input type="text" matInput formControlName="dummy1" placeholder="Dum">
+    </mat-form-field>   
+    </div>
+
+    <div>
+        <mat-form-field>
+            <input matInput [matDatepicker]="dp3" formControlName = "dummy2" placeholder="Dummy 2" disabled>
+            <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+            <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+        </mat-form-field>
+    </div>
+
+    
+
+    <div>
+        <mat-form-field>
+            <mat-label>Dummy 3</mat-label>
+            <input type="text" formControlName="dummy3" matInput placeholder="DumDum" required>
+        </mat-form-field>
+    </div>
+
+    
+</div>
+
+<div class="buttonRow">
+    <button mat-raised-button (click)="resetForm()">Reset Form</button>
+    <button mat-raised-button (click)=goForward() [disabled]="!dummyForm.valid">Submit</button>
+</div>
+
+<div *ngIf="!isProduction">{{dummyForm.value | json}}</div>

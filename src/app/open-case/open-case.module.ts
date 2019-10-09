@@ -9,11 +9,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
+import { AccidentCaseComponent } from './accident-case/accident-case.component';
+import { DummyCaseComponent } from './dummy-case/dummy-case.component';
 
 
 
 @NgModule({
-  declarations: [OpenCaseComponent],
+  declarations: [OpenCaseComponent, AccidentCaseComponent, DummyCaseComponent],
   imports: [
     CommonModule,
     OpenCaseRoutingModule,

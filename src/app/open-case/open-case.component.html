@@ -1,19 +1,18 @@
 <h2>Open New Case</h2>
-<button (click)="checkValues()">Check Values</button>
+
 <div class="main-div">
 <div>
     <form [formGroup]="caseForm">
         <mat-form-field>
             <mat-label>Case Type</mat-label>
             <mat-select formControlName="accidentType" (selectionChange)="updateForm()">
-            <!-- <mat-select formControlName="accidentType"> -->
                 <mat-option *ngFor="let caseType of CaseTypeKeys" [value]="caseType">
                 {{caseType}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
 
-        <div *ngIf="caseForm.value.accidentType!=''">
+        <!-- <div *ngIf="caseForm.value.accidentType!=''">
             
             <div *ngFor="let formFields of CaseTypes[caseForm.get('accidentType').value]">
                 
@@ -32,16 +31,13 @@
                 </mat-form-field>   
             </div>
             
-        </div>
-
+        </div> -->
+        <router-outlet></router-outlet>
 
     </form>
 
 </div>
-    
 
-<div class="buttonRow">
-    <button mat-raised-button (click)="resetForm()">Reset Form</button>
-    <button mat-raised-button (click)=goForward() [disabled]="!caseForm.valid">Submit</button>
-</div>
+
+
 </div>

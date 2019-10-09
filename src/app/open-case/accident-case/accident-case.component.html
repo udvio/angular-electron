@@ -1,0 +1,45 @@
+<div [formGroup]="accidentForm">
+    <div >
+    <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input type="text" matInput formControlName="clientName" placeholder="Client Name">
+    </mat-form-field>   
+    </div>
+
+    <div>
+        <mat-form-field>
+            <mat-label>Identity Card #</mat-label>
+            <input type="text" formControlName="identityCardNumber" matInput placeholder="XXXXXX-XX-XXXX" required>
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field>
+            <mat-label>License Plate #</mat-label>
+            <input type="text" formControlName="licensePlateNumber" matInput placeholder="" required>
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field>
+            <input matInput [matDatepicker]="dp3" formControlName = "accidentDate" placeholder="Accident Date" disabled>
+            <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+            <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+        </mat-form-field>
+    </div>
+</div>
+
+
+<!-- </ng-container>
+<ng-template #date>
+    <ng-container *ngIf = "formFields.fieldType == 'date'">
+        
+    </ng-container>
+</ng-template> -->
+
+<div class="buttonRow">
+    <button mat-raised-button (click)="resetForm()">Reset Form</button>
+    <button mat-raised-button (click)=goForward() [disabled]="!accidentForm.valid">Submit</button>
+</div>
+
+<div *ngIf="!isProduction">{{accidentForm.value | json}}</div>
