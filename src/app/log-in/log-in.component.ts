@@ -31,7 +31,7 @@ export class LogInComponent implements OnInit {
     .subscribe(
       res => {
         console.info("This is the response", res);
-        localStorage.setItem('token', res.token);
+        localStorage.setItem('token', res['token']);
         this.router.navigate(['/opencase'])
       },
       err => {console.log("This is the error", err); this.logInErrorMessage="Wrong Username & Password combo"}
