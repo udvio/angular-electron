@@ -1,4 +1,4 @@
-import { LogInService } from './../log-in.service';
+import { LogInService } from './../services/log-in.service';
 import { CaseTypeKeys } from './caseFields';
 import { FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';

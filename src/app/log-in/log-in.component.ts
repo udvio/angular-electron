@@ -1,4 +1,4 @@
-import { LogInService } from './../log-in.service';
+import { LogInService } from './../services/log-in.service';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';

@@ -1,4 +1,4 @@
-import { TokenInterceptorService } from './token-interceptor.service';
+import { TokenInterceptorService } from './services/token-interceptor.service';
 import 'reflect-metadata';
 import '../polyfills';
 

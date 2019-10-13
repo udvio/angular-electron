@@ -1,7 +1,6 @@
-import { ILogIn } from './log-in/log-in.interface';
+import { ILogIn } from './../log-in/log-in.interface';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Config } from 'electron';
 import { throwError } from 'rxjs';
 
 @Injectable({
