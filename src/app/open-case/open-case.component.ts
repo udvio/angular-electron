@@ -1,3 +1,4 @@
+import { LogInService } from './../log-in.service';
 import { CaseTypeKeys } from './caseFields';
 import { FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -13,7 +14,8 @@ export class OpenCaseComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private logInService: LogInService
   ) { }
 
 
@@ -24,6 +26,7 @@ export class OpenCaseComponent implements OnInit {
   async updateForm() {
     this.router.navigate(['opencase',this.caseForm.get('accidentType').value])
   }
+
 
   ngOnInit() {
     this.caseForm = this.fb.group({
