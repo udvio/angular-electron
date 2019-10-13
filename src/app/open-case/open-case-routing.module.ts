@@ -1,3 +1,4 @@
+import { AuthGuard } from './../auth.guard';
 import { AccidentCaseComponent } from './accident-case/accident-case.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -10,6 +11,7 @@ const routes: Routes = [
   {
     path: '',
     component: OpenCaseComponent,
+    canActivate: [AuthGuard],
 
     children: [
       {
