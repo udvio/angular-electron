@@ -30,11 +30,14 @@ export class LogInComponent implements OnInit {
     this.logInService.getAccess(formObj)
     .subscribe(
       res => {
-        console.info("This is the response", res);
-        localStorage.setItem('token', res['token']);
-        this.router.navigate(['/opencase'])
+        if (res === true) {
+          console.info("Response: ", res)
+          this.router.navigate(['/opencase'])
+        } else {
+          this.logInErrorMessage="Wrong Username & Password combo"
+        }
       },
-      err => {console.log("This is the error", err); this.logInErrorMessage="Wrong Username & Password combo"}
+      err => {console.error(`${LogInComponent.name}::${this.onSubmit.name} -> ${JSON.stringify(err)}`)}
       )
     
     // .subscribe( resp => console.info(resp))
