@@ -26,7 +26,7 @@ export class AccidentCaseComponent implements OnInit {
     ) { }
   
   
-  goForward() {
+  submit() {
     console.info('Tried to do something')
   }  
 
