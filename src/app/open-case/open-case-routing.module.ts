@@ -1,4 +1,4 @@
-import { AuthGuard } from './../auth.guard';
+import { AuthGuard } from '../guards/auth-guard/auth.guard';
 import { AccidentCaseComponent } from './accident-case/accident-case.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';

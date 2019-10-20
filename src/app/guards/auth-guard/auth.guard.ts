@@ -1,4 +1,4 @@
-import { LogInService } from './services/log-in.service';
+import { LogInService } from '../../services/log-in-service/log-in.service';
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 
