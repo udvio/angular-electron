@@ -10,13 +10,5 @@ import { Location } from '@angular/common';
 export class PageNotFoundComponent implements OnInit {
   constructor(private location: Location, private router: Router) {}
 
-  goBack() {
-    this.location.back()
-  }
-
-  printLocation() {
-    console.warn(this.router.url)
-  }
-
   ngOnInit() {}
 }

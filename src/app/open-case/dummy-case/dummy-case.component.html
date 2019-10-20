@@ -28,7 +28,7 @@
 
 <div class="buttonRow">
     <button mat-raised-button (click)="resetForm()">Reset Form</button>
-    <button mat-raised-button (click)=goForward() [disabled]="!dummyForm.valid">Submit</button>
+    <button mat-raised-button (click)=submit() [disabled]="!dummyForm.valid">Submit</button>
 </div>
 
 <div *ngIf="!isProduction">{{dummyForm.value | json}}</div>

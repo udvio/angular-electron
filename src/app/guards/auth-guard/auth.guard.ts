@@ -12,10 +12,10 @@ export class AuthGuard implements CanActivate {
 
   canActivate(){
     if (this.logInService.isLoggedIn()){
-      console.info('Token is present')
+      console.info(`${AuthGuard.name}::${this.canActivate.name} -> Token Present`)
       return true
     } else {
-      console.info('Token is not present')
+      console.error(`${AuthGuard.name}::${this.canActivate.name} -> Token Not Present`)
       this.router.navigate([''])
       return false
     }

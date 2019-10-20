@@ -31,7 +31,7 @@ export class LogInComponent implements OnInit {
     .subscribe(
       res => {
         if (res === true) {
-          console.info("Response: ", res)
+          console.info(`${LogInComponent.name}::${this.onSubmit.name}::response -> ${JSON.stringify(res)}`)
           this.router.navigate(['/opencase'])
         } else {
           this.logInErrorMessage="Wrong Username & Password combo"
@@ -45,7 +45,7 @@ export class LogInComponent implements OnInit {
     if(AppConfig.production){
       window.close()
     }else{
-      console.warn("User tried to close app")
+      console.warn(`${LogInComponent.name}::${this.closeApp.name} -> User tried to Close App`)
     }
   }
 

@@ -27,7 +27,7 @@ export class AccidentCaseComponent implements OnInit {
   
   
   submit() {
-    console.info('Tried to do something')
+    console.info(`${AccidentCaseComponent.name}::${this.submit.name} -> ${JSON.stringify(this.accidentForm.value)}`)
   }  
 
   resetForm(){

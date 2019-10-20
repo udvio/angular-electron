@@ -21,8 +21,8 @@ export class DummyCaseComponent implements OnInit {
 
   isProduction = AppConfig.production
 
-  goForward() {
-    console.info('Tried to submit')
+  submit() {
+    console.info(`${DummyCaseComponent.name}::${this.submit.name} -> ${JSON.stringify(this.dummyForm.value)}`)
   }
 
   resetForm(){
