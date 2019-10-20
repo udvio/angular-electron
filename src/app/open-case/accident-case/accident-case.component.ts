@@ -22,7 +22,7 @@ export class AccidentCaseComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router
+    private router: Router //This will change the route.
     ) { }
   
   

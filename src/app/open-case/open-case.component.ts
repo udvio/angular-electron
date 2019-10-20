@@ -17,9 +17,7 @@ export const CaseType =
 export class OpenCaseComponent implements OnInit {
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
-    private fb: FormBuilder,
-    private logInService: LogInService
+    private fb: FormBuilder
   ) { }
 
 

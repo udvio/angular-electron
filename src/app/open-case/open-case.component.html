@@ -12,26 +12,6 @@
             </mat-select>
         </mat-form-field>
 
-        <!-- <div *ngIf="caseForm.value.accidentType!=''">
-            
-            <div *ngFor="let formFields of CaseTypes[caseForm.get('accidentType').value]">
-                
-                <mat-form-field>
-                <mat-label>{{formFields.fieldDisplay}}</mat-label>
-                <ng-container *ngIf = "formFields.fieldType == 'string'; else date">
-                    <input type="text" matInput placeholder="{{formFields.fieldDisplay}}" formControlName='{{formFields.fieldIdentifier}}' required>
-                </ng-container>
-                <ng-template #date>
-                    <ng-container *ngIf = "formFields.fieldType == 'date'">
-                        <input matInput [matDatepicker]="dp3" placeholder="Input disabled" formControlName="{{formFields.fieldIdentifier}}" disabled>
-                        <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
-                        <mat-datepicker #dp3 disabled="false"></mat-datepicker>
-                    </ng-container>
-                </ng-template>
-                </mat-form-field>   
-            </div>
-            
-        </div> -->
         <router-outlet></router-outlet>
 
     </form>

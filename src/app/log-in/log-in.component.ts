@@ -21,7 +21,7 @@ export class LogInComponent implements OnInit {
   })
 
   constructor(private fb: FormBuilder, private router: Router, private logInService: LogInService) { }
-  headers
+
   async onSubmit(){
     this.logInErrorMessage = ""
     let formObj = this.logInForm.getRawValue()
@@ -39,15 +39,6 @@ export class LogInComponent implements OnInit {
       },
       err => {console.error(`${LogInComponent.name}::${this.onSubmit.name} -> ${JSON.stringify(err)}`)}
       )
-    
-    // .subscribe( resp => console.info(resp))
-    // .subscribe( resp => this.headers = resp)
-   
-    // console.warn("Username: ", this.logInForm.get('username').value)
-    // console.warn("Password: ", this.logInForm.get('password').value)
-    // 
-    // this.userName = this.logInForm.get('userName').value
-    // this.passWord = this.logInForm.get('passWord').value
   }
 
   closeApp(){
