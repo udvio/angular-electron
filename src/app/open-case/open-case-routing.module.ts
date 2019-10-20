@@ -3,7 +3,7 @@ import { AccidentCaseComponent } from './accident-case/accident-case.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { OpenCaseComponent } from './open-case.component';
+import { OpenCaseComponent, CaseType } from './open-case.component';
 import { DummyCaseComponent } from './dummy-case/dummy-case.component';
 
 
@@ -15,11 +15,11 @@ const routes: Routes = [
 
     children: [
       {
-        path:'Accident',
+        path: CaseType.Accident,
         component: AccidentCaseComponent
       },
       {
-        path:'Dummy',
+        path: CaseType.Dummy,
         component: DummyCaseComponent
       }
     ]

@@ -1,9 +1,13 @@
 import { LogInService } from './../services/log-in.service';
-import { CaseTypeKeys } from './caseFields';
 import { FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
+export const CaseType =
+{  
+  Accident : 'Accident',
+  Dummy: 'Dummy'
+}
 
 @Component({
   selector: 'app-open-case',
@@ -19,19 +23,25 @@ export class OpenCaseComponent implements OnInit {
   ) { }
 
 
-  CaseTypeKeys=CaseTypeKeys //Need this, to allow Angular to read the values in html
+  openCaseFormControl = {
+    caseType : ["",Validators.required]
+  }
+
+  CaseTypeKeys: string[] = []
   caseForm:FormGroup 
   
 
   async updateForm() {
-    this.router.navigate(['opencase',this.caseForm.get('accidentType').value])
+    this.router.navigate(['opencase',this.caseForm.get('caseType').value])
   }
 
 
   ngOnInit() {
-    this.caseForm = this.fb.group({
-      accidentType : ["",Validators.required]
-    })
+
+    Object.keys(CaseType).map(eachCase => {
+      this.CaseTypeKeys.push(eachCase)
+    });
+    this.caseForm = this.fb.group(this.openCaseFormControl)
     this.caseForm.valueChanges.subscribe(newVal => console.info(newVal))
   }
 
