@@ -8,7 +8,7 @@ import { AppConfig } from '../../environments/environment';
 @Component({
   selector: 'app-login',
   templateUrl: './log-in.component.html',
-  styleUrls: ['./log-in.component.css']
+  styleUrls: ['./log-in.component.scss']
 })
 export class LogInComponent implements OnInit {
   userName:string = "None";

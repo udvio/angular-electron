@@ -1,17 +1,26 @@
+
+.buttonRow button{
+  width: 100px;
+  margin-right:8px;
+}
+
+mat-card{
+  max-width: 300px;
+  text-align: center;
+}
+
+.main-div {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); 
+}
+
+
 .container {
   height: 100%;
   display: flex;
-  align-items: center;
-  justify-content: center;
 
   background: url(../../assets/background.jpg) no-repeat center fixed;
   -webkit-background-size: cover; /* pour anciens Chrome et Safari */
-  background-size: cover; /* version standardisée */
-
-  .title {
-    color: white;
-    margin: 0;
-    padding: 50px 20px;
-  }
-}
-
+  background-size: cover; /* version standardisée */}
