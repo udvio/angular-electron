@@ -10,9 +10,10 @@ import { LoginRoutingModule } from './log-in-routing.module';
 
 import { LogInComponent } from './log-in.component';
 import { SharedModule } from '../shared/shared.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [LogInComponent],
-  imports: [CommonModule, SharedModule, LoginRoutingModule, BrowserModule, FormsModule, ReactiveFormsModule, MatInputModule, MatButtonModule, MatCardModule]
+  imports: [CommonModule, SharedModule, LoginRoutingModule, BrowserModule, FormsModule, ReactiveFormsModule, MatInputModule, MatButtonModule, MatCardModule, MatSnackBarModule]
 })
 export class LogInModule {}
