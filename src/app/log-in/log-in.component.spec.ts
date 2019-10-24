@@ -1,3 +1,4 @@
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser'
 import { LogInService } from './../services/log-in-service/log-in.service';
@@ -27,7 +28,7 @@ describe('LogInComponent', () => {
         // Router,
         LogInService,
         {provide: HttpClient, useClass: HttpClientTestingModule}], 
-      imports: [TranslateModule.forRoot()]
+      imports: [TranslateModule.forRoot(), MatSnackBarModule]
     }).compileComponents();
     service = TestBed.get(LogInService)
     
