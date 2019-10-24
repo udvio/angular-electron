@@ -1,4 +1,5 @@
 import { RouterTestingModule } from '@angular/router/testing';
+import { By } from '@angular/platform-browser'
 import { LogInService } from './../services/log-in-service/log-in.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
@@ -35,7 +36,6 @@ describe('LogInComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(LogInComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
     localStorage.setItem('token',"tokenValue")
     
   });
@@ -66,7 +66,7 @@ describe('LogInComponent', () => {
     expect(localStorage.getItem('token')).toBeNull()
   })
 
-  it('should attempt to navigate to /opencase', () => {
+  xit('should attempt to navigate to /opencase', () => {
     spyOn(service, 'getAccess').and.returnValue(of(true))
 
 
@@ -78,6 +78,16 @@ describe('LogInComponent', () => {
 
 
 
+  })
+
+  it('should render the message if failed login', () => {
+    let de = fixture.debugElement.query(By.css('.buttonRow'))
+    let el: HTMLElement = de.nativeElement;
+
+    //make changes
+    fixture.detectChanges()
+
+    el.innerHTML
   })
 
   // Add in html clicking for close app & submit

@@ -6,7 +6,7 @@ import { TestBed, async, inject } from '@angular/core/testing';
 import { AuthGuard } from './auth.guard';
 import { HttpClient } from '@angular/common/http';
 
-describe('AuthGuard', () => {
+xdescribe('AuthGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
@@ -17,7 +17,7 @@ describe('AuthGuard', () => {
   });
 
   it('should ...', inject([AuthGuard], (guard: AuthGuard) => {
-    pending()
-    // expect(guard).toBeTruthy();
+    // pending()
+    expect(guard).toBeTruthy();
   }));
 });
