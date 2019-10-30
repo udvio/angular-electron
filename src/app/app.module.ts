@@ -1,10 +1,11 @@
+import { TokenInterceptorService } from './services/token-interceptor-service/token-interceptor.service';
 import 'reflect-metadata';
 import '../polyfills';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 
@@ -14,9 +15,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import { HomeModule } from './home/home.module';
+import { LogInModule } from './log-in/log-in.module';
 
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -31,7 +33,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClientModule,
     CoreModule,
     SharedModule,
-    HomeModule,
+    LogInModule,
     AppRoutingModule,
     TranslateModule.forRoot({
       loader: {
@@ -39,9 +41,15 @@ export function HttpLoaderFactory(http: HttpClient) {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [FormsModule,
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
