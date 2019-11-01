@@ -5,8 +5,8 @@
     <form [formGroup]="caseForm">
         <mat-form-field>
             <mat-label>Case Type</mat-label>
-            <mat-select formControlName="caseType" (selectionChange)="updateForm()">
-                <mat-option *ngFor="let caseType of CaseTypeKeys" [value]="caseType">
+            <mat-select id="SomethingCool" formControlName="caseType" (selectionChange)="updateForm()">
+                <mat-option *ngFor="let caseType of CaseTypeKeys" [value]="caseType" attr.id={{caseType}}>
                 {{caseType}}
                 </mat-option>
             </mat-select>

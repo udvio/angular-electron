@@ -24,7 +24,6 @@ describe('LogInComponent', () => {
   let service: LogInService
   let snackService: MatSnackBar
   let routeService: any
-  const routerSpy = jasmine.createSpyObj('Router', ['navigate'])
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
