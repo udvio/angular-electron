@@ -1,0 +1,77 @@
+<div *ngIf="clientData">
+    "Client data exists!"
+</div>
+
+
+<div *ngIf="caseData">
+    <mat-card>
+        <mat-card-header>
+            Case Information
+        </mat-card-header>
+
+        <mat-grid-list cols="2" rowHeight="30px">
+            <mat-grid-tile>Case Number: </mat-grid-tile>
+            <mat-grid-tile>{{caseData["caseNumber"]}}</mat-grid-tile>
+            <mat-grid-tile>Case Type: </mat-grid-tile>
+            <mat-grid-tile>{{caseData["caseType"]}}</mat-grid-tile>
+            <mat-grid-tile>Case ID: </mat-grid-tile>
+            <mat-grid-tile>{{caseData["_caseID"]}}</mat-grid-tile>
+            <mat-grid-tile>Date: </mat-grid-tile>
+            <mat-grid-tile>{{caseData["startDate"].format("D MMMM YYYY")}}</mat-grid-tile>
+        </mat-grid-list>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-header>Case Phases</mat-card-header>
+        <mat-accordian [multi]=true>
+            <mat-expansion-panel *ngFor="let phase of caseData['casePhases'] | keyvalue" [expanded]="phase.value['status']==='ongoing'">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>{{phase.value['name']}}</mat-panel-title>
+                    <mat-panel-description>Status : {{phaseStatusToPrintable[phase.value['status']]}}</mat-panel-description>
+                    <mat-panel-description>{{calculatePhaseDueDate(phase.key)}}</mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <mat-grid-list cols=5 rowHeight = "35px">
+                    <mat-grid-tile>Filename</mat-grid-tile>
+                    <mat-grid-tile>Dependency</mat-grid-tile>
+                    <mat-grid-tile>Due Date</mat-grid-tile>
+                    <mat-grid-tile>Days until overdue</mat-grid-tile>
+                    <mat-grid-tile>File ID</mat-grid-tile>
+                    <div *ngFor="let files of phase.value['fileInfo'] | keyvalue">            
+                        <mat-grid-tile>{{files.value['name']}}</mat-grid-tile>
+                        
+                        
+                        <mat-grid-tile *ngIf="files.value['dependency'] != null; else noDependency">{{phase.value['fileInfo'][files.value['dependency']]['name']}}</mat-grid-tile>
+                        <ng-template #noDependency>
+                            <mat-grid-tile></mat-grid-tile>
+                        </ng-template>
+
+                        
+                        <mat-grid-tile>{{calculateDueDate(files.value['duration'])}}</mat-grid-tile>
+
+
+                        <mat-grid-tile *ngIf="files.value['completed']; else dueTime">Submitted</mat-grid-tile>
+                        <ng-template #dueTime>
+                            <mat-grid-tile>{{calculateDaysToOverdue(files.value['duration'])}}</mat-grid-tile>
+                        </ng-template>
+
+                        
+                        <mat-grid-tile *ngIf="files.value['completed']; else notComplete">Download {{files.value['fileID']}}</mat-grid-tile>
+                        <ng-template #notComplete>
+                            <mat-grid-tile>Uploadfunction?</mat-grid-tile>
+                        </ng-template>
+                    </div>
+                </mat-grid-list>
+                
+        
+            </mat-expansion-panel>
+        </mat-accordian>
+
+
+    </mat-card>
+    <div>
+
+    
+    </div>
+</div>
+<button (click)="dueDateCalculator()">"Click me for Looping"</button>
