@@ -44,4 +44,10 @@ export class AppComponent {
   goBack(){
     this.location.back()
   }
+
+  goStatus() {
+    this.router.navigate(['case-status'])
+
+  }
+
 }
