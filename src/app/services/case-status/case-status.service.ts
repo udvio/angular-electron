@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { Injectable } from '@angular/core';
 import { map, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { PersistenceService, StorageType } from 'angular-persistence'
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class CaseStatusService {
   caseData: any = null
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private persistenceService: PersistenceService
   ) { }
 
   whatIsCurrentCaseData() {
@@ -57,6 +59,15 @@ export class CaseStatusService {
 
   deleteCaseData() {
     this.caseData = null
+  }
+
+  setPersist(caseData:Object) {
+    this.persistenceService.set('currentCase', caseData, {type: StorageType.LOCAL})
+    console.info("SAVED")
+  }
+
+  getPersist(){
+    console.info(this.persistenceService.get('currentCase', StorageType.LOCAL))
   }
 
   

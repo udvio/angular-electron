@@ -9,6 +9,8 @@ import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from '@angular/common/
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 
+import { PersistenceModule } from 'angular-persistence';
+
 import { AppRoutingModule } from './app-routing.module';
 
 // NG Translate
@@ -44,7 +46,8 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
     BrowserAnimationsModule,
-    CaseStatusModule
+    CaseStatusModule,
+    PersistenceModule,
   ],
   providers: [FormsModule,
   {

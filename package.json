@@ -90,7 +90,9 @@
     "@angular/cdk": "~8.2.1",
     "@angular/forms": "^8.0.0 || ^9.0.0-0",
     "@angular/material": "^8.2.1",
+    "angular-persistence": "^1.0.1",
     "moment": "^2.24.0",
+    "rxjs-compat": "^6.5.3",
     "save": "^2.4.0"
   }
 }
