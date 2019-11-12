@@ -91,13 +91,6 @@ export class CaseStatusComponent implements OnInit {
   }
 
 
-  setPersist() {
-    this.caseStatusService.setPersist(this.caseData)
-  }
-
-  getPersist() {
-    this.caseStatusService.getPersist()
-  }
 
 
 

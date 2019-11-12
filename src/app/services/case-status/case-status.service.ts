@@ -61,14 +61,5 @@ export class CaseStatusService {
     this.caseData = null
   }
 
-  setPersist(caseData:Object) {
-    this.persistenceService.set('currentCase', caseData, {type: StorageType.LOCAL})
-    console.info("SAVED")
-  }
-
-  getPersist(){
-    console.info(this.persistenceService.get('currentCase', StorageType.LOCAL))
-  }
-
   
 }
