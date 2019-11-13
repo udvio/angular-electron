@@ -63,31 +63,19 @@ export class CaseStatusComponent implements OnInit {
     return startDate.add(maxDuration,'days').format("D MMMM YYYY")
   }
 
-  dueDateCalculator() {
-    let startDate = moment(this.caseData['startDate'])
-    let phaseStartDate = moment(this.caseData['startDate'])
-    for (let phase in this.caseData['casePhases']) {
-      let thisPhase = this.caseData['casePhases'][phase]
-      this.caseDueDates[phase] = {}
-      this.caseDueDates[phase]['startDate'] = phaseStartDate
-      this.caseDueDates[phase]['fileInfo'] = {}
-      
-      for (let file in thisPhase['fileInfo']) {
-        let thisFile = thisPhase['fileInfo'][file]
-        let hasdependency = thisFile['dependency']
-        let numDays = thisFile['duration']
-        
-        while (hasdependency) {
-          
-        }
+  putDB(){
+    this.caseStatusService.putDB(this.caseData)
+  }
 
-        
-        let fileDueDate = phaseStartDate.add(numDays, 'days')
-        this.caseDueDates[phase]['fileInfo'][file] = fileDueDate
-      }
+  getDB(){
+    this.caseStatusService.getDB()
+  }
 
-
-    }
+  resetDB() {
+    this.caseStatusService.delDB()
+  }
+  consoleCase(){
+    console.info(this.caseData)
   }
 
 
@@ -95,8 +83,8 @@ export class CaseStatusComponent implements OnInit {
 
 
 
-
   ngOnInit() {
+    this.caseStatusService.setupDB()
     this.caseData = this.caseStatusService.getCaseData()
     if (this.caseData === null) {
       console.info('Its a null :)')

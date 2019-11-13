@@ -3,18 +3,20 @@ import { FormGroup } from '@angular/forms';
 import { Injectable } from '@angular/core';
 import { map, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import PouchDB from 'pouchdb';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class CaseStatusService {
+  db: any
   clintData: any = null
   caseData: any = null
 
   constructor(
     private http: HttpClient,
-  ) { }
+  ) {  }
 
   whatIsCurrentCaseData() {
     return this.caseData
@@ -58,6 +60,29 @@ export class CaseStatusService {
 
   deleteCaseData() {
     this.caseData = null
+  }
+
+  setupDB() {
+    this.db = new PouchDB('lawDocDB')
+    console.info(this.db.info())
+    console.info("WURHT")
+  }
+
+  putDB(caseInfo: Object) {
+    let randoObj = {'_id':"case ID", case:"FOOLS"}
+    // this.db.put(caseInfo)
+    this.db.put(randoObj).catch( err=> console.info(err))
+  }
+
+  getDB() {
+    this.db.get("case ID").then(ret=> console.info(ret))
+  }
+
+  delDB() {
+    this.db.get("case ID")
+    .then( (retDoc) => {return this.db.remove(retDoc)})
+    .catch( err => console.info(err))
+    
   }
 
   
