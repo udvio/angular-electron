@@ -2,6 +2,7 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/app",
+    "allowSyntheticDefaultImports": true, //for pouchdb
     // "module": "es2015",
     "module": "esnext",
     "baseUrl": "",
