@@ -46,7 +46,7 @@ export class AppComponent {
   }
 
   goStatus() {
-    this.router.navigate(['case-status'])
+    this.router.navigate(['case-index'])
 
   }
 
