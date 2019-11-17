@@ -27,46 +27,23 @@ export class CaseStatusComponent implements OnInit {
     private caseStatusService: CaseStatusService
   ) { }
 
-  loopButton() {
-    console.info("Current Case Data Is", this.caseStatusService.whatIsCurrentCaseData())
-  }
 
   casePhases(someCaseData) {
     return Object.keys(this.caseData["casePhases"])
   }
 
-  calculateDueDate(daysDuration:number) {
-    // let startDate = moment([this.caseData['startDate'].getFullYear(), this.caseData['startDate'].getMonth()-1, this.caseData['startDate'].getDate()])
-    let startDate = moment(this.caseData['startDate'])
-    let dueDate = startDate.add(daysDuration,'days')
-    return dueDate.format("D MMMM YYYY")
+  printDate(inputDate: string) {
+    return moment(new Date(inputDate)).format("D MMMM YYYY")
   }
 
-  calculateDaysToOverdue(daysDuration:number) {
+
+  calculateDaysToOverdue(fileDueDate:number) {
     let today = moment(new Date())
-    let startDate = moment(this.caseData['startDate'])
-    let dueDate = startDate.add(daysDuration,'days')
+    let dueDate = moment(new Date(fileDueDate))
     let daysToOverdue = dueDate.diff(today,'days')
     return daysToOverdue
   }
 
-
-  calculatePhaseDueDate(phaseIdentifier: string){
-    let files = this.caseData['casePhases'][phaseIdentifier]['fileInfo']
-    let maxDuration = 0
-    for (let file in files) {
-      if (files[file]['duration'] > maxDuration) {
-        maxDuration = files[file]['duration']
-      }
-    }
-    
-    let startDate = moment(this.caseData['startDate'])
-    return startDate.add(maxDuration,'days').format("D MMMM YYYY")
-  }
-
-  putDB(){
-    this.caseStatusService.putDB(this.caseData)
-  }
 
   getDB(){
     this.caseStatusService.getDB()
@@ -80,39 +57,29 @@ export class CaseStatusComponent implements OnInit {
     console.info(typeof(this.caseData['startDate']))
   }
 
-
-
-
-
-
   async ngOnInit() {
+    console.info("RUNNING ngOnInit")
     this.caseStatusService.setupDB()
     // look into DB for the current case
-    this.caseStatusService.getCaseData('someData').then(
+    let queryString = "lawfirmID/acc/CaseID" //change to pull from activeRoute
+    this.caseStatusService.getCaseData(queryString).then(
       ret=>{
-        console.info("Positive Return", ret);
+        console.info("File found in localDB", ret);
         this.caseData = ret
       })
-    .catch( err => {
-      //cannot find case
+    //cannot find case in local db
+    .catch( async err => {
       if (err.status === 404) {
-        console.info("File not found", err);
-        return this.caseStatusService.queryCaseData('DummyVal')
-      }
-    })
-    .then(
-      ret=>(
-        ret.subscribe( 
-          val => {
-            console.info("Succes pull", val)
-            this.caseData = val
-          })
-        )
-    )
- 
-    
+        console.info("File not found in localDB", err);
+        let docExists = await this.caseStatusService.queryCaseData(queryString)
+        if (docExists===true) {
+          this.ngOnInit()
+        } else {
+          console.info("File Not Found in remoteDB")
+        }
 
-    
+    }})
+
   }
 
 }
