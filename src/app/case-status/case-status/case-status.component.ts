@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { catchError, map } from 'rxjs/operators';
 import { CaseStatusService } from './../../services/case-status/case-status.service';
 import { Component, OnInit, ModuleWithComponentFactories } from '@angular/core';
@@ -24,7 +25,8 @@ export class CaseStatusComponent implements OnInit {
   caseDueDates: Object;
 
   constructor(
-    private caseStatusService: CaseStatusService
+    private caseStatusService: CaseStatusService,
+    private activatedRoute: ActivatedRoute
   ) { }
 
 
@@ -57,11 +59,24 @@ export class CaseStatusComponent implements OnInit {
     console.info(typeof(this.caseData['startDate']))
   }
 
+  getID(){
+    const id = this.activatedRoute.snapshot.paramMap.get('id')
+    console.log(id)
+  }
+
   async ngOnInit() {
     console.info("RUNNING ngOnInit")
     this.caseStatusService.setupDB()
     // look into DB for the current case
-    let queryString = "lawfirmID/acc/CaseID" //change to pull from activeRoute
+    // let queryString = "lawfirmID/acc/CaseID" //change to pull from activeRoute
+    let firm = this.activatedRoute.snapshot.paramMap.get('firm')
+    let typ = this.activatedRoute.snapshot.paramMap.get('typ')
+    let id = this.activatedRoute.snapshot.paramMap.get('id')
+    let queryString = [firm, typ, id].join('/')
+    console.log("The type", queryString)
+    // console.log("The stirng", queryString2)
+
+
     this.caseStatusService.getCaseData(queryString).then(
       ret=>{
         console.info("File found in localDB", ret);
