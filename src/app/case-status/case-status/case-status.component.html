@@ -15,10 +15,9 @@
             <mat-grid-tile>Case Type: </mat-grid-tile>
             <mat-grid-tile>{{caseData["caseType"]}}</mat-grid-tile>
             <mat-grid-tile>Case ID: </mat-grid-tile>
-            <mat-grid-tile>{{caseData["_caseID"]}}</mat-grid-tile>
-            <mat-grid-tile>Date: </mat-grid-tile>
-            <mat-grid-tile>{{caseData["startDate"].format("D MMMM YYYY")}}</mat-grid-tile>
-            <!-- <mat-grid-tile>{{caseData["startDate"].format("D MMMM YYYY")}}</mat-grid-tile> -->
+            <mat-grid-tile>{{caseData["caseID"]}}</mat-grid-tile>
+            <mat-grid-tile>Start Date: </mat-grid-tile>
+            <mat-grid-tile>{{printDate(caseData["startDate"])}}</mat-grid-tile>
         </mat-grid-list>
     </mat-card>
 
@@ -29,9 +28,10 @@
                 <mat-expansion-panel-header>
                     <mat-panel-title>{{phase.value['name']}}</mat-panel-title>
                     <mat-panel-description>Status : {{phaseStatusToPrintable[phase.value['status']]}}</mat-panel-description>
-                    <mat-panel-description>{{calculatePhaseDueDate(phase.key)}}</mat-panel-description>
+                    <mat-panel-description>{{printDate(phase.value['phaseDueDate'])}}</mat-panel-description>
                 </mat-expansion-panel-header>
 
+                
                 <mat-grid-list cols=5 rowHeight = "35px">
                     <mat-grid-tile>Filename</mat-grid-tile>
                     <mat-grid-tile>Dependency</mat-grid-tile>
@@ -48,12 +48,13 @@
                         </ng-template>
 
                         
-                        <mat-grid-tile>{{calculateDueDate(files.value['duration'])}}</mat-grid-tile>
+                        <mat-grid-tile>{{printDate(files.value['fileDueDate'])}}</mat-grid-tile>
+                        <!-- <mat-grid-tile>{{calculateDueDate(files.value['duration'])}}</mat-grid-tile> -->
 
 
                         <mat-grid-tile *ngIf="files.value['completed']; else dueTime">Submitted</mat-grid-tile>
                         <ng-template #dueTime>
-                            <mat-grid-tile>{{calculateDaysToOverdue(files.value['duration'])}}</mat-grid-tile>
+                            <mat-grid-tile>{{calculateDaysToOverdue(files.value['fileDueDate'])}}</mat-grid-tile>
                         </ng-template>
 
                         
