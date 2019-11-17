@@ -43,14 +43,15 @@ export class CaseStatusService {
     let successStatus: boolean
     await this.remoteDB.get(caseMarker)
     // If File exists, replicate the file to localdb
-    .then(()=>{
-      this.remoteDB.replicate.to(this.localdb, {doc_ids:[caseMarker], include_docs: true})
+    .then(async ()=>{
+      await this.remoteDB.replicate.to(this.localdb, {doc_ids:[caseMarker], include_docs: true})
+      // .on('complete', successStatus = true )
       successStatus = true
     })
     // if File doesn't exist, do nothing
     .catch(()=>{successStatus = false})
 
-
+    console.log("Service sataus",successStatus)
     return successStatus
 
   }
