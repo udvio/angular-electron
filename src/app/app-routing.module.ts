@@ -1,3 +1,4 @@
+import { CaseIndexComponent } from './case-status/case-index/case-index.component';
 import { AuthGuard } from './guards/auth-guard/auth.guard';
 import { CaseStatusComponent } from './case-status/case-status/case-status.component';
 import { NgModule } from '@angular/core';
@@ -18,10 +19,16 @@ const routes: Routes = [
     // pathMatch:'full'
   },
   {
-    path:'case-status',
-    component: CaseStatusComponent,
+    path:'case-index',
+    component: CaseIndexComponent,
     canActivate: [AuthGuard],
     pathMatch: 'full'
+  },
+  {
+    path:'case-status/:firm/:typ/:id',
+    component: CaseStatusComponent,
+    canActivate: [AuthGuard],
+    // pathMatch: 'full'
     // loadChildren: () => import('./case-status/case-status.module').then(module => module.CaseStatusModule)
   },
   {

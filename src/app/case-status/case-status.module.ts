@@ -6,12 +6,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CaseStatusRoutingModule } from './case-status-routing.module';
 import { CaseStatusComponent } from './case-status/case-status.component';
+import { CaseIndexComponent } from './case-index/case-index.component';
 // import { MatTableModule } from '@angular/material/table';
 
 
 
 @NgModule({
-  declarations: [CaseStatusComponent],
+  declarations: [CaseStatusComponent, CaseIndexComponent],
   imports: [
     CommonModule,
     CaseStatusRoutingModule,
