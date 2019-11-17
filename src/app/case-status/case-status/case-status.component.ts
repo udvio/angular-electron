@@ -1,3 +1,4 @@
+import { catchError, map } from 'rxjs/operators';
 import { CaseStatusService } from './../../services/case-status/case-status.service';
 import { Component, OnInit, ModuleWithComponentFactories } from '@angular/core';
 import { ValueTransformer } from '@angular/compiler/src/util';
@@ -76,6 +77,7 @@ export class CaseStatusComponent implements OnInit {
   }
   consoleCase(){
     console.info(this.caseData)
+    console.info(typeof(this.caseData['startDate']))
   }
 
 
@@ -83,26 +85,33 @@ export class CaseStatusComponent implements OnInit {
 
 
 
-  ngOnInit() {
+  async ngOnInit() {
     this.caseStatusService.setupDB()
-    this.caseData = this.caseStatusService.getCaseData()
-    if (this.caseData === null) {
-      console.info('Its a null :)')
-      this.caseStatusService.queryCaseData("Err")
-      .subscribe(
-        ret => {
-          if (ret===true) {
-            this.caseData = this.caseStatusService.getCaseData()
-            this.caseData['startDate'] = moment(new Date(this.caseData['startDate']))
-            // this.dueDateCalculator()
-          }
-        },
-        err => {
-          console.error(err)
-        }
-      )
+    // look into DB for the current case
+    this.caseStatusService.getCaseData('someData').then(
+      ret=>{
+        console.info("Positive Return", ret);
+        this.caseData = ret
+      })
+    .catch( err => {
+      //cannot find case
+      if (err.status === 404) {
+        console.info("File not found", err);
+        return this.caseStatusService.queryCaseData('DummyVal')
+      }
+    })
+    .then(
+      ret=>(
+        ret.subscribe( 
+          val => {
+            console.info("Succes pull", val)
+            this.caseData = val
+          })
+        )
+    )
+ 
+    
 
-    }
     
   }
 

@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
 import { Injectable } from '@angular/core';
-import { map, catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { map, catchError, tap } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
 import PouchDB from 'pouchdb';
+import 'rxjs/add/observable/from'
 
 
 @Injectable({
@@ -18,15 +19,25 @@ export class CaseStatusService {
     private http: HttpClient,
   ) {  }
 
+  setupDB() {
+    this.db = new PouchDB('lawDocDB')
+    console.info('DB successfully generated')
+    console.info(this.db.info())
+    
+  }
+
+
   whatIsCurrentCaseData() {
     return this.caseData
   }
 
   //Called by case-status page
-  getCaseData() {
-    let returningCase = this.caseData
-    this.caseData = null
-    return returningCase
+  getCaseData(caseMarker?: String) {
+    return this.db.get(caseMarker)
+    // Observable.from(this.db.get(caseMarker)).pipe(
+    //   map(resp => {console.info(resp); return resp}),
+    //   catchError( (err)=> {console.info(err); return throwError("HAHAHAH")})
+    // )
   }
 
   //called by open-case child component or casedashboard component
@@ -36,7 +47,8 @@ export class CaseStatusService {
       map(queryResponse => {
         this.caseData = queryResponse
         // this.caseData = this.caseProcessing(queryResponse);
-        return true
+        console.info("CaseStatusService:: Success")
+        return queryResponse
       }),
       catchError(error => {
         return throwError("An Error occurred: ", error)
@@ -62,11 +74,6 @@ export class CaseStatusService {
     this.caseData = null
   }
 
-  setupDB() {
-    this.db = new PouchDB('lawDocDB')
-    console.info(this.db.info())
-    console.info("WURHT")
-  }
 
   putDB(caseInfo: Object) {
     let randoObj = {'_id':"case ID", case:"FOOLS"}
@@ -75,7 +82,8 @@ export class CaseStatusService {
   }
 
   getDB() {
-    this.db.get("case ID").then(ret=> console.info(ret))
+    // this.db.get("case ID").then(ret=> console.info(ret))
+    this.db.allDocs().then(ret => console.info(ret))
   }
 
   delDB() {
