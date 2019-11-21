@@ -3,7 +3,7 @@
 </div>
 
 
-<div *ngIf="caseData">
+<div *ngIf="caseData else noCaseData">
     <mat-card>
         <mat-card-header>
             Case Information
@@ -76,6 +76,14 @@
     
     </div>
 </div>
+
+<ng-template #noCaseData>
+    <mat-card>
+        <h2>Error</h2>
+        <p>Unable to retrive case data</p>
+        <button mat-raised-button (click)="goBack()" >Back to Index Page</button>
+    </mat-card>
+</ng-template>
 <button (click)="consoleCase()">Print Case</button>
 <button (click)="getDB()">GetDB</button>
 <button (click)="resetDB()">ResetDB</button>

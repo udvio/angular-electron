@@ -1,4 +1,4 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, map } from 'rxjs/operators';
 import { CaseStatusService } from './../../services/case-status/case-status.service';
 import { Component, OnInit, ModuleWithComponentFactories } from '@angular/core';
@@ -26,7 +26,8 @@ export class CaseStatusComponent implements OnInit {
 
   constructor(
     private caseStatusService: CaseStatusService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) { }
 
 
@@ -36,6 +37,10 @@ export class CaseStatusComponent implements OnInit {
 
   printDate(inputDate: string) {
     return moment(new Date(inputDate)).format("D MMMM YYYY")
+  }
+
+  goBack() {
+    this.router.navigate(['case-index'])
   }
 
 
@@ -66,18 +71,17 @@ export class CaseStatusComponent implements OnInit {
 
   async ngOnInit() {
     console.info("RUNNING ngOnInit")
-    this.caseStatusService.setupDB()
+    
     // look into DB for the current case
     // let queryString = "lawfirmID/acc/CaseID" //change to pull from activeRoute
     let firm = this.activatedRoute.snapshot.paramMap.get('firm')
     let typ = this.activatedRoute.snapshot.paramMap.get('typ')
     let id = this.activatedRoute.snapshot.paramMap.get('id')
-    let queryString = [firm, typ, id].join('/')
-    console.log("The type", queryString)
-    // console.log("The stirng", queryString2)
+    this.caseStatusService.setupDB(typ.toLowerCase())
+    console.log(id)
 
 
-    this.caseStatusService.getCaseData(queryString).then(
+    this.caseStatusService.getCaseData(id).then(
       ret=>{
         console.info("File found in localDB", ret);
         this.caseData = ret
@@ -86,7 +90,7 @@ export class CaseStatusComponent implements OnInit {
     .catch( async err => {
       if (err.status === 404) {
         console.info("File not found in localDB", err);
-        let docExists = await this.caseStatusService.queryCaseData(queryString)
+        let docExists = await this.caseStatusService.queryCaseData(id)
         if (docExists===true) {
           this.ngOnInit()
         } else {

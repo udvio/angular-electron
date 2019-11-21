@@ -13,6 +13,10 @@ import 'rxjs/add/observable/from'
 export class CaseStatusService {
   localdb: any
   remoteDB: any
+
+  localIndexDB: any
+  remoteIndexDB: any
+
   clintData: any = null
   caseData: any = null
 
@@ -20,25 +24,49 @@ export class CaseStatusService {
     private http: HttpClient,
   ) {  }
 
-  setupDB() {
-    this.localdb = new PouchDB('lawDocDB')
-    console.info('DB successfully generated')
-    console.info(this.localdb.info())
+  // setup DB connections
+  setupDB(dbIdentifierString:string) {
+    this.localdb = new PouchDB(dbIdentifierString)
+    this.localdb.info()
+    .then(console.info('localDB successfully connected'))
+    .catch(err=>console.error("ERROR! Unable to create local DB",err))
 
-    this.remoteDB = new PouchDB('http://localhost:5984/lawdocdb')
-    console.info("remote DB connected")
-    console.info(this.remoteDB.info())
-    
+
+    let remoteDBAddress = ['http://localhost:5984',dbIdentifierString].join("/")
+    // console.log(remoteDBAddress)
+    // this.remoteDB = new PouchDB('http://localhost:5984/lawdocdb')
+    this.remoteDB = new PouchDB(remoteDBAddress)
+    this.remoteDB.info()
+    .then(console.info("remoteDB successfully connected"))    
+    .catch(err=>console.error("Unable to connect to remote DB", err))
+
+  }
+
+  setupIndex() {
+    this.localIndexDB = new PouchDB('caselist')
+    this.localIndexDB.info()
+    .then(console.info("localIndexDB successfullycreated"))
+    .catch(err=>console.error("Unable to create local IndexDB", err))
+
+    this.remoteIndexDB = new PouchDB('http://localhost:5984/caselist')
+    this.remoteIndexDB.info()
+    .then(console.info("remoteDB successfully connected"))    
+    .catch(err=>console.error("Unable to connect to remote DB", err))
+    // this.remoteIndexDB.replicate.to(this.localIndexDB)
+  }
+
+  getStatusIndex() {
+    return this.localIndexDB.allDocs({include_docs:true})
   }
 
 
 
-  //Called by case-status page
+  //Called by case-status page on initialization
   getCaseData(caseMarker: String) {
     return this.localdb.get(caseMarker)
   }
 
-
+  // Called by case-status page to query directly to DB
   async queryCaseData(caseMarker: string): Promise<boolean> {
     let successStatus: boolean
     await this.remoteDB.get(caseMarker)
@@ -51,7 +79,6 @@ export class CaseStatusService {
     // if File doesn't exist, do nothing
     .catch(()=>{successStatus = false})
 
-    console.log("Service sataus",successStatus)
     return successStatus
 
   }
@@ -59,17 +86,26 @@ export class CaseStatusService {
 
   createCaseData(inputCase: object) {
     return this.http.post('http://localhost:3000/api/case/lawfirmID/acc/create', inputCase)
-    
+  }
+  
+  
+  deleteLocalIndexDB(){
+    this.localIndexDB.destroy().then(console.info("LocalDBDestroyed"))
+  }
+
+  replicateToLocalIndexDB(){
+    this.remoteIndexDB.replicate.to(this.localIndexDB)
   }
 
 
+  // Dev utility functions
   getDB() {
     this.localdb.allDocs().then(ret => console.info(ret))
   }
 
   delDB() {
     this.localdb.destroy().then(() => {
-      this.setupDB()
+      // this.setupDB()
     })
     
   }
