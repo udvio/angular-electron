@@ -1,3 +1,4 @@
+import { MatButtonModule } from '@angular/material/button';
 import { TokenInterceptorService } from './services/token-interceptor-service/token-interceptor.service';
 import 'reflect-metadata';
 import '../polyfills';
@@ -20,6 +21,11 @@ import { LogInModule } from './log-in/log-in.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CaseStatusModule } from './case-status/case-status.module';
+import { MatToolbarModule } from '@angular/material/toolbar';
+// import { MatIconModule } from '@angular/material/icon';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -36,6 +42,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     SharedModule,
     LogInModule,
     AppRoutingModule,
+    MatToolbarModule,
+    // MatIconModule,
+    MatChipsModule,
+    MatButtonModule,
+    MatDialogModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

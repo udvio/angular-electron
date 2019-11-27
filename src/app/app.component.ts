@@ -1,9 +1,11 @@
+import { LogoutComponent } from './shared/components/logout/logout.component';
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { ElectronService } from './core/services';
 import { TranslateService } from '@ngx-translate/core';
 import { AppConfig } from '../environments/environment';
 import { Location } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +17,8 @@ export class AppComponent {
     public electronService: ElectronService,
     private translate: TranslateService,
     private router: Router,
-    private location: Location
+    private location: Location,
+    private dialog: MatDialog
   ) {
     translate.setDefaultLang('en');
     console.log('AppConfig', AppConfig);
@@ -48,6 +51,22 @@ export class AppComponent {
   goStatus() {
     this.router.navigate(['case-index'])
 
+  }
+
+  logOut(){
+
+    if (localStorage.getItem('token')) {
+      console.log("its present")
+      let dialogRef = this.dialog.open(LogoutComponent,{
+        width:'200px'
+      })
+
+      dialogRef.afterClosed().subscribe(result=> {
+        if (result===true){
+          this.router.navigate([""])
+        }
+      })
+    }
   }
 
 }
