@@ -1,10 +1,5 @@
-<div *ngIf="clientData">
-    "Client data exists!"
-</div>
-
-
-<div *ngIf="caseData else noCaseData">
-    <mat-card>
+<div *ngIf="caseData else noCaseData" class="caseData" layout-align="center none">
+    <mat-card layout-align="center none">
         <mat-card-header>
             Case Information
         </mat-card-header>
@@ -21,7 +16,7 @@
         </mat-grid-list>
     </mat-card>
 
-    <mat-card>
+    <mat-card layout-align="center none">
         <mat-card-header>Case Phases</mat-card-header>
         <mat-accordian [multi]=true>
             <mat-expansion-panel *ngFor="let phase of caseData['casePhases'] | keyvalue" [expanded]="phase.value['status']==='ongoing'">
@@ -78,7 +73,7 @@
 </div>
 
 <ng-template #noCaseData>
-    <mat-card>
+    <mat-card class="noCaseData">
         <h2>Error</h2>
         <p>Unable to retrive case data</p>
         <button mat-raised-button (click)="goBack()" >Back to Index Page</button>
