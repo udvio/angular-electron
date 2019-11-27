@@ -36,7 +36,8 @@ export class LogInComponent implements OnInit {
       res => {
         if (res === true) {
           console.info(`${LogInComponent.name}::${this.onSubmit.name}::response -> ${JSON.stringify(res)}`)
-          this.router.navigate(['/opencase'])
+          // this.router.navigate(['/opencase'])
+          this.router.navigate(['case-index'])
         } 
       },
       err => {
