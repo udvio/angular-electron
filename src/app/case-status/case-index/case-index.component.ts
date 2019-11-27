@@ -22,8 +22,8 @@ export class CaseIndexComponent implements OnInit {
     private caseStatusService: CaseStatusService
   ) { }
 
-  moveMe(){
-    this.router.navigate(["case-status/lawfirmID/acc/CaseID"])
+  createCase(){
+    this.router.navigate(["opencase"])
   }
 
   applyFilter(filterValue: string){
