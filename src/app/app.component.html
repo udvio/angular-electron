@@ -2,7 +2,19 @@
     <button (click)="whereAmI()">Where am i?</button>
     <button (click)="goHome()">Home</button>
     <button (click)="goBack()">Go Back</button>
+    <button (click)="goStatus()">Go Case Index</button>
 </div>
+
+<mat-toolbar color='primary'>
+    <span>Law Doc</span>
+    <span class="example-fill-remaining-space"></span>
+
+    <span>
+        <button mat-flat-button color='primary' (click)="goStatus()">Cases</button>
+        <button mat-flat-button color='primary'>Settings</button>
+        <button mat-flat-button color='primary' (click)="logOut()">Logout</button>
+    </span>
+</mat-toolbar>
 
 
 <router-outlet></router-outlet>

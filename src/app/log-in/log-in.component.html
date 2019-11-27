@@ -23,12 +23,12 @@
           
         </form>
       </div>
-      <div>
+      <div class='errorMessage' [hidden]="!logInError">
         {{logInErrorMessage}}
       </div>
 
       <div class='buttonRow'>
-        <button mat-raised-button (click)="onSubmit()" [disabled]="!logInForm.valid">Log In</button>
+        <button id="logInButton" mat-raised-button (click)="onSubmit()" [disabled]="!logInForm.valid">Log In</button>
         <button mat-raised-button (click)="closeApp()">Quit</button>
       </div>
     </mat-card>

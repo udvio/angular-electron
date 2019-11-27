@@ -9,7 +9,7 @@ import { HttpInterceptor } from '@angular/common/http';
 export class TokenInterceptorService implements HttpInterceptor{
 
 
-  constructor(private injector: Injector, private logInService: LogInService) { }
+  constructor() { }
 
   intercept(req, next) {
     // let logInService = this.injector.get(LogInService)

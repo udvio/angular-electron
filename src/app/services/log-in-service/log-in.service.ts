@@ -20,12 +20,16 @@ export class LogInService {
         localStorage.setItem('token', authResponse['token']);
         return true;
       }),
-      catchError(error => {
-        console.error(`${LogInService.name}::${this.getAccess.name} -> ${JSON.stringify(error)}`)
-        return of(false);
+      catchError((error: HttpErrorResponse) => {
+        if (error.error instanceof ErrorEvent) {
+        return throwError(false)} else {
+          if (error.status === 401) { 
+            return throwError("Unauthorized User. Please contact an Admin")
+          } else { 
+            return throwError("Cannot connect to server")
+          }
+        }
       })
-      
-
     )
   }
 

@@ -7,7 +7,7 @@ import { OpenCaseComponent, CaseType } from './open-case.component';
 import { DummyCaseComponent } from './dummy-case/dummy-case.component';
 
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: '',
     component: OpenCaseComponent,

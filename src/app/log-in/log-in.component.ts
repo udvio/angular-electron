@@ -1,6 +1,7 @@
 import { LogInService } from '../services/log-in-service/log-in.service';
+import { MatSnackBar } from '@angular/material/snack-bar'
 
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppConfig } from '../../environments/environment';
@@ -14,16 +15,19 @@ export class LogInComponent implements OnInit {
   userName:string = "None";
   passWord:string = "None";
   logInError: boolean = false;
-  logInErrorMessage: string;
+  logInErrorMessage: string = 'Im hidden! :D';
   logInForm = this.fb.group({
     username: ['', Validators.required],
     password: ['', Validators.required]
   })
 
-  constructor(private fb: FormBuilder, private router: Router, private logInService: LogInService) { }
+  constructor(
+    private fb: FormBuilder, 
+    private router: Router, 
+    private logInService: LogInService,
+    private _snackBar: MatSnackBar) { }
 
-  async onSubmit(){
-    this.logInErrorMessage = ""
+  onSubmit(){
     let formObj = this.logInForm.getRawValue()
     console.info("onSubmit logs: ", formObj)
     
@@ -32,12 +36,14 @@ export class LogInComponent implements OnInit {
       res => {
         if (res === true) {
           console.info(`${LogInComponent.name}::${this.onSubmit.name}::response -> ${JSON.stringify(res)}`)
-          this.router.navigate(['/opencase'])
-        } else {
-          this.logInErrorMessage="Wrong Username & Password combo"
-        }
+          // this.router.navigate(['/opencase'])
+          this.router.navigate(['case-index'])
+        } 
       },
-      err => {console.error(`${LogInComponent.name}::${this.onSubmit.name} -> ${JSON.stringify(err)}`)}
+      err => {
+        console.error(`${LogInComponent.name}::${this.onSubmit.name} -> ${JSON.stringify(err)}`)
+        this._snackBar.open(err, "Close", {duration : 5000})
+      }
       )
   }
 
