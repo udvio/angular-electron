@@ -16,6 +16,7 @@ import * as moment from 'moment';
 export class CaseStatusComponent implements OnInit {
   caseData : Object;
   caseDataKeys : String[]
+  isDone: boolean
   // casePhases: ICasePhase;
   phaseStatusToPrintable = {
     'done' : 'Complete',
@@ -85,6 +86,7 @@ export class CaseStatusComponent implements OnInit {
       ret=>{
         console.info("File found in localDB", ret);
         this.caseData = ret
+        this.isDone = true
       })
     //cannot find case in local db
     .catch( async err => {
@@ -95,6 +97,7 @@ export class CaseStatusComponent implements OnInit {
           this.ngOnInit()
         } else {
           console.info("File Not Found in remoteDB")
+          this.isDone = true
         }
 
     }})

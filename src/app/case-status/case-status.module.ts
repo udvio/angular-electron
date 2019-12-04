@@ -12,7 +12,7 @@ import { CaseIndexComponent } from './case-index/case-index.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -28,7 +28,8 @@ import { MatSortModule } from '@angular/material/sort';
     MatPaginatorModule,
     MatInputModule,
     MatSortModule,
-    MatButtonModule
+    MatButtonModule,
+    MatProgressSpinnerModule
   ]
 })
 export class CaseStatusModule { }
