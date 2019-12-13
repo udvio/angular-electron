@@ -30,9 +30,6 @@ export class CaseIndexComponent implements OnInit {
     this.caseList.filter = filterValue.trim().toLowerCase()
   }
 
-  getRow(row){
-    
-  }
 
   dblClick(row){
     let targetRoute = ['case-status','lawfirmID', row.typ, row._id].join('/')
@@ -68,10 +65,7 @@ export class CaseIndexComponent implements OnInit {
         this.caseList.sort = this.sort
       })
     .catch(err => console.error("An error happened!"))
-    
 
-    
-    
   }
 
 }

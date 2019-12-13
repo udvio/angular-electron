@@ -1,10 +1,9 @@
+import { AppConfig } from './../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { FormGroup } from '@angular/forms';
 import { Injectable } from '@angular/core';
-import { map, catchError, tap } from 'rxjs/operators';
-import { Observable, throwError, of } from 'rxjs';
 import PouchDB from 'pouchdb';
 import 'rxjs/add/observable/from'
+var urljoin = require('url-join')
 
 
 @Injectable({
@@ -32,7 +31,10 @@ export class CaseStatusService {
     .catch(err=>console.error("ERROR! Unable to create local DB",err))
 
 
-    let remoteDBAddress = ['http://localhost:5984',dbIdentifierString].join("/")
+    // let remoteDBAddress = ['http://localhost:5984',dbIdentifierString].join("/")
+    // let remoteDBAddress = [AppConfig.dbAddress,dbIdentifierString].join("/")
+    let remoteDBAddress = urljoin(AppConfig.dbAddress,dbIdentifierString)
+
     // console.log(remoteDBAddress)
     // this.remoteDB = new PouchDB('http://localhost:5984/lawdocdb')
     this.remoteDB = new PouchDB(remoteDBAddress)
@@ -48,7 +50,9 @@ export class CaseStatusService {
     .then(console.info("localIndexDB successfullycreated"))
     .catch(err=>console.error("Unable to create local IndexDB", err))
 
-    this.remoteIndexDB = new PouchDB('http://localhost:5984/caselist')
+    let remoteUrl = urljoin(AppConfig.dbAddress,'caselist')
+    // this.remoteIndexDB = new PouchDB('http://localhost:5984/caselist')
+    this.remoteIndexDB = new PouchDB(remoteUrl)
     this.remoteIndexDB.info()
     .then(console.info("remoteDB successfully connected"))    
     .catch(err=>console.error("Unable to connect to remote DB", err))
@@ -85,7 +89,9 @@ export class CaseStatusService {
 
 
   createCaseData(inputCase: object) {
-    return this.http.post('http://localhost:3000/api/case/lawfirmID/acc/create', inputCase)
+    let createCaseURL = urljoin(AppConfig.serverAddress,'create')
+    // return this.http.post('http://localhost:3000/api/case/lawfirmID/acc/create', inputCase)
+    return this.http.post(createCaseURL, inputCase)
   }
   
   
