@@ -35,7 +35,7 @@
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayCols"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayCols;" (click)="getRow(row)" (dblclick)="dblClick(row)"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayCols;" (dblclick)="dblClick(row)"></tr>
 
         </table>
         <mat-paginator [pageSize]="10" [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>
