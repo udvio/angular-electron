@@ -54,9 +54,11 @@ export class CaseStatusService {
     // this.remoteIndexDB = new PouchDB('http://localhost:5984/caselist')
     this.remoteIndexDB = new PouchDB(remoteUrl)
     this.remoteIndexDB.info()
-    .then(console.info("remoteDB successfully connected"))    
+    .then(console.info("remoteIndexDB successfully connected"))    
     .catch(err=>console.error("Unable to connect to remote DB", err))
     // this.remoteIndexDB.replicate.to(this.localIndexDB)
+
+    
   }
 
   getStatusIndex() {
@@ -95,6 +97,7 @@ export class CaseStatusService {
   }
   
   
+  // Dev utility functions  
   deleteLocalIndexDB(){
     this.localIndexDB.destroy().then(console.info("LocalDBDestroyed"))
   }
@@ -103,8 +106,6 @@ export class CaseStatusService {
     this.remoteIndexDB.replicate.to(this.localIndexDB)
   }
 
-
-  // Dev utility functions
   getDB() {
     this.localdb.allDocs().then(ret => console.info(ret))
   }
