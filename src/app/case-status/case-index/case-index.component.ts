@@ -49,7 +49,8 @@ export class CaseIndexComponent implements OnInit, OnDestroy {
 
   // dev funcs
   deleteLocalIndexDB(){
-    this.localIndexDB.destroy().then(this.refreshTable())
+    // this.localIndexDB.destroy().then(this.refreshTable())
+    this.caseIndexService.deleteLocalIndexDB()
   }
 
   replicateToLocalIndexDB(){
@@ -59,7 +60,8 @@ export class CaseIndexComponent implements OnInit, OnDestroy {
   }
 
   refreshTable(){
-    this.localIndexDB.allDocs({include_docs:true})
+    // this.localIndexDB.allDocs({include_docs:true})
+    this.caseIndexService.getStatusIndex()
     .then(
       ret=>{
         console.info("File found in localDB", ret);
@@ -86,29 +88,13 @@ export class CaseIndexComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // sets up local index DB. Will create a db if not present for first time start up
-    this.localIndexDB = new PouchDB('caselist')
-    this.localIndexDB.info()
-    .then(returned=>{console.info("localIndexDB successfullycreated"); console.log(returned)})
-    .catch(err=>console.error("Unable to create local IndexDB", err))
+    this.caseIndexService.setupIndex()
+    this.refreshTable()
+  }
 
-
-    // will connect to external server.
-    let remoteUrl = urljoin(AppConfig.dbAddress,'caselist')
-    this.remoteIndexDB = new PouchDB(remoteUrl)
-    this.remoteIndexDB.info()
-    .then((returned)=>{
-      console.log(returned)
-      this.refreshTable()
-    })
-    .catch(err=>{console.error("Unable to connect to remote DB", err); this.refreshTable()})
-    //TODO add in some message indicating that it failed to connect to remote.
-
-
-    this.syncHandler=this.localIndexDB.sync(this.remoteIndexDB, {
-      live: true,
-      retry: true
-    })
+  ngAfterContentInit(){
+    this.syncHandler = this.caseIndexService.getSyncHandler()
+    this.syncHandler
     .on('change', ()=>{
       if (this.caseList.data.length!=0) {
         this._zone.run(()=>this.openNotification())
@@ -125,7 +111,7 @@ export class CaseIndexComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.syncHandler.cancel()
+    this.syncHandler.removeAllListeners()
   }
 
 }

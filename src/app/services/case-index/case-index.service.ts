@@ -12,42 +12,47 @@ var urljoin = require('url-join')
 export class CaseIndexService {
   localIndexDB: any
   remoteIndexDB: any
+  syncHandler: any
 
   clintData: any = null
   caseData: any = null
 
   constructor(
     private http: HttpClient,
-  ) {  }
+  ) { 
+
+   }
 
   setupIndex() {
-    this.localIndexDB = new PouchDB('caselist')
+    // sets up local index DB. Will create a db if not present for first time start up
+    this.localIndexDB = new PouchDB('caselist', {auto_compaction:true})
     this.localIndexDB.info()
-    .then(console.info("localIndexDB successfullycreated"))
+    .then(returned=>{console.info("localIndexDB successfullycreated"); console.log(returned)})
     .catch(err=>console.error("Unable to create local IndexDB", err))
 
+
+    // will connect to external server.
     let remoteUrl = urljoin(AppConfig.dbAddress,'caselist')
-    // this.remoteIndexDB = new PouchDB('http://localhost:5984/caselist')
     this.remoteIndexDB = new PouchDB(remoteUrl)
     this.remoteIndexDB.info()
-    .then(()=>{
-      console.info("remoteIndexDB successfully connected");
-      this.replicateToLocalIndexDB()
+    .then((returned)=>{
+      console.log(returned)
     })
-    .catch(err=>console.error("Unable to connect to remote DB", err))
-    // this.remoteIndexDB.replicate.to(this.localIndexDB)
+    .catch(err=>{console.error("Unable to connect to remote DB", err)})
+    //TODO add in some message indicating that it failed to connect to remote.
 
-
+    this.syncHandler=this.localIndexDB.sync(this.remoteIndexDB, {
+      live: true,
+      retry: true
+    })
   }
 
   getStatusIndex() {
     return this.localIndexDB.allDocs({include_docs:true})
   }
 
-  checkChanges() {
-    // return this.remoteIndexDB.changes({
-    //   since: 
-    // })
+  getSyncHandler() {
+    return this.syncHandler
   }
  
   
