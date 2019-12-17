@@ -33,11 +33,8 @@ export class CaseStatusComponent implements OnInit {
 
 
   casePhases(someCaseData) {
+    //ngIf looping in DOM
     return Object.keys(this.caseData["casePhases"])
-  }
-
-  printDate(inputDate: string) {
-    return moment(new Date(inputDate)).format("D MMMM YYYY")
   }
 
   goBack() {
@@ -53,37 +50,22 @@ export class CaseStatusComponent implements OnInit {
   }
 
 
-  getDB(){
-    this.caseStatusService.getDB()
-  }
-
   resetDB() {
     this.caseStatusService.delDB()
   }
-  consoleCase(){
-    console.info(this.caseData)
-    console.info(typeof(this.caseData['startDate']))
-  }
-
-  getID(){
-    const id = this.activatedRoute.snapshot.paramMap.get('id')
-    console.log(id)
-  }
 
   async ngOnInit() {
-    console.info("RUNNING ngOnInit")
-    
     // look into DB for the current case
     // let queryString = "lawfirmID/acc/CaseID" //change to pull from activeRoute
     let firm = this.activatedRoute.snapshot.paramMap.get('firm')
     let typ = this.activatedRoute.snapshot.paramMap.get('typ')
     let id = this.activatedRoute.snapshot.paramMap.get('id')
     this.caseStatusService.setupDB(typ.toLowerCase())
-    console.log(id)
 
 
-    this.caseStatusService.getCaseData(id).then(
-      ret=>{
+    this.caseStatusService.getCaseData(id)
+    .then(ret=>{
+        //check if file needs to be updated. 
         console.info("File found in localDB", ret);
         this.caseData = ret
         this.isDone = true
@@ -102,6 +84,10 @@ export class CaseStatusComponent implements OnInit {
 
     }})
 
+  }
+
+  ngOnDestroy(){
+    //do something to disconnect them
   }
 
 }
