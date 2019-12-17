@@ -1,7 +1,7 @@
 
 <button mat-raised-button color="primary" (click)="createCase()">Create New Case</button>
 
-<mat-card>
+<mat-card [hidden]="!remoteSuccess">
     <mat-form-field>
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
     </mat-form-field>
@@ -43,5 +43,11 @@
 
 </mat-card>
 
+<!-- <mat-card [hidden]="!remoteSuccess">
+    Remote connection failed
+</mat-card> -->
+
 <button (click)="replicateToLocalIndexDB()">Replicate to Local Index DB</button>
 <button (click)="deleteLocalIndexDB()">Destroy Local Index DB</button>
+<button (click)="openNotification()">Open Notification</button>
+

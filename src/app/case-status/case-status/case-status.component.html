@@ -13,7 +13,7 @@
                 <mat-grid-tile>Case ID: </mat-grid-tile>
                 <mat-grid-tile>{{caseData["caseID"]}}</mat-grid-tile>
                 <mat-grid-tile>Start Date: </mat-grid-tile>
-                <mat-grid-tile>{{printDate(caseData["startDate"])}}</mat-grid-tile>
+                <mat-grid-tile>{{caseData["startDate"] | date : 'd MMMM yyyy'}}</mat-grid-tile>
             </mat-grid-list>
         </mat-card>
 
@@ -24,7 +24,7 @@
                     <mat-expansion-panel-header>
                         <mat-panel-title>{{phase.value['name']}}</mat-panel-title>
                         <mat-panel-description>Status : {{phaseStatusToPrintable[phase.value['status']]}}</mat-panel-description>
-                        <mat-panel-description>{{printDate(phase.value['phaseDueDate'])}}</mat-panel-description>
+                        <mat-panel-description>{{phase.value['phaseDueDate'] | date : 'd MMMM yyyy'}}</mat-panel-description>
                     </mat-expansion-panel-header>
 
                     
@@ -44,8 +44,9 @@
                             </ng-template>
 
                             
-                            <mat-grid-tile>{{printDate(files.value['fileDueDate'])}}</mat-grid-tile>
-                            <!-- <mat-grid-tile>{{calculateDueDate(files.value['duration'])}}</mat-grid-tile> -->
+                            
+                            <mat-grid-tile>{{files.value['fileDueDate'] | date : 'd MMMM yyyy'}}</mat-grid-tile>
+
 
 
                             <mat-grid-tile *ngIf="files.value['completed']; else dueTime">Submitted</mat-grid-tile>
