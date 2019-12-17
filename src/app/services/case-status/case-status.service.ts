@@ -13,9 +13,6 @@ export class CaseStatusService {
   localdb: any
   remoteDB: any
 
-  localIndexDB: any
-  remoteIndexDB: any
-
   clintData: any = null
   caseData: any = null
 
@@ -35,7 +32,7 @@ export class CaseStatusService {
     // let remoteDBAddress = [AppConfig.dbAddress,dbIdentifierString].join("/")
     let remoteDBAddress = urljoin(AppConfig.dbAddress,dbIdentifierString)
 
-    // console.log(remoteDBAddress)
+
     // this.remoteDB = new PouchDB('http://localhost:5984/lawdocdb')
     this.remoteDB = new PouchDB(remoteDBAddress)
     this.remoteDB.info()
@@ -44,35 +41,12 @@ export class CaseStatusService {
 
   }
 
-  setupIndex() {
-    this.localIndexDB = new PouchDB('caselist')
-    this.localIndexDB.info()
-    .then(console.info("localIndexDB successfullycreated"))
-    .catch(err=>console.error("Unable to create local IndexDB", err))
-
-    let remoteUrl = urljoin(AppConfig.dbAddress,'caselist')
-    // this.remoteIndexDB = new PouchDB('http://localhost:5984/caselist')
-    this.remoteIndexDB = new PouchDB(remoteUrl)
-    this.remoteIndexDB.info()
-    .then(console.info("remoteIndexDB successfully connected"))    
-    .catch(err=>console.error("Unable to connect to remote DB", err))
-    // this.remoteIndexDB.replicate.to(this.localIndexDB)
-
-    
-  }
-
-  getStatusIndex() {
-    return this.localIndexDB.allDocs({include_docs:true})
-  }
-
-
-
   //Called by case-status page on initialization
   getCaseData(caseMarker: String) {
     return this.localdb.get(caseMarker)
   }
 
-  // Called by case-status page to query directly to DB
+  // Called by case-status page to query directly to remote DB
   async queryCaseData(caseMarker: string): Promise<boolean> {
     let successStatus: boolean
     await this.remoteDB.get(caseMarker)
@@ -89,7 +63,6 @@ export class CaseStatusService {
 
   }
 
-
   createCaseData(inputCase: object) {
     let createCaseURL = urljoin(AppConfig.serverAddress,'create')
     // return this.http.post('http://localhost:3000/api/case/lawfirmID/acc/create', inputCase)
@@ -98,14 +71,6 @@ export class CaseStatusService {
   
   
   // Dev utility functions  
-  deleteLocalIndexDB(){
-    this.localIndexDB.destroy().then(console.info("LocalDBDestroyed"))
-  }
-
-  replicateToLocalIndexDB(){
-    this.remoteIndexDB.replicate.to(this.localIndexDB)
-  }
-
   getDB() {
     this.localdb.allDocs().then(ret => console.info(ret))
   }
