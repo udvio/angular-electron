@@ -30,7 +30,7 @@ export class LogInService {
           if (error.status === 401) { 
             return throwError("Unauthorized User. Please contact an Admin")
           } else { 
-            return throwError("Cannot connect to server")
+            return throwError(`HttpError ${error.status}: ${error.error.message}`)
           }
         }
       })
